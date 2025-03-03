@@ -2,14 +2,15 @@ from flask import Flask, render_template, request, jsonify, send_from_directory
 import os
 import requests
 from pypdf import PdfReader
-
+from dotenv import load_dotenv
 app = Flask(__name__)
-
+load_dotenv()
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure the uploads directory exists
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-API_KEY = "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"
+API_KEY = os.getenv("API_KEY")
+# API_KEY = "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"
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
 headers = {
     "Authorization": f"Bearer {API_KEY}",
